@@ -31,19 +31,25 @@ function addBookToLibrary(title, author, pages, read) {
     li.setAttribute("id", i)
   }
   
-
-  deleteButton.addEventListener('click', () => {
+  const assignID = () => {
     let allLi = document.querySelectorAll('li');
     for (let i = 0; i < allLi.length; i++) { 
       allLi[i].removeAttribute("id"); 
       allLi[i].setAttribute("id", i);
     }
+  }
+
+  deleteButton.addEventListener('click', () => {
+    assignID();
     myLibrary.splice(parseInt(li.getAttribute("id")), 1);
     li.remove();
   })
 
   readButton.addEventListener('click', () => {
-    li.style.background = "green";
+    assignID();
+    let readStatus = myLibrary[parseInt(li.getAttribute("id"))].read;
+    if (readStatus) myLibrary[parseInt(li.getAttribute("id"))].read = false;
+    else myLibrary[parseInt(li.getAttribute("id"))].read = true;
   })
 }
 
@@ -62,3 +68,5 @@ document.querySelector('form').addEventListener('submit', (e) => {
   document.querySelector('.pages').value = "";
   document.querySelector('.read').checked = false;
 })
+
+
