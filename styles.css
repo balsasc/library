@@ -8,11 +8,14 @@ body {
   font-family: 'Raleway', sans-serif;
   display: flex;
 }
+  
+button { 
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.3rem;
+}
 
 #form {
   height: 100vh;
-  width: 500px;
-  max-width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +23,6 @@ body {
   background-color: #ddd;
   border-right: 3px solid #333;
   padding: 2rem;
-  margin-right: 5rem;
 }
 
 #form h2 {
@@ -49,6 +51,7 @@ body {
   padding: 0.4rem 1.3rem;
   max-width: 100%;
   margin-bottom: 1.5rem;
+  outline: none;
 }
 
 #form label {
@@ -66,10 +69,86 @@ body {
   padding: 0.6rem 1.4rem;
   border-radius: 100px;
   cursor: pointer;
+  outline: none;
 }
 
-#form .submit:hover {
-  background-color: rgb(0, 72, 167);
+#form .submit:hover { background-color: rgb(0, 72, 167); }
+
+main { 
+  padding: 2rem; 
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  color: #fff;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.container h3 {
+  text-align: center;
+  font-weight: 400;
+  margin: 1rem 0;
+  font-size: 2.5rem;
+  text-transform: capitalize;
+}
+
+h4, h5 {
+  font-weight: 400;
+}
+
+.container .remove-btn {
+  margin-right: 1.3rem;
+}
+
+.container .remove-btn,
+.container .read-btn {
+  padding: 0.3rem 1rem;
+}
+
+.button-div { display: flex; justify-content: center; margin-top: 1.5rem; }
+
+.books { 
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+}
+
+@media (max-width: 1700px) {
+  .books {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  body {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #form {
+    height: auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 3px solid #333;
+  }
+
+  .books {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 
+@media (max-width: 750px) {
+  .books {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

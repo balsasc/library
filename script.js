@@ -15,17 +15,35 @@ function addBookToLibrary(title, author, pages, read) {
   const li = document.createElement('li');
   li.classList.add('list-item');
 
+  const container = document.createElement('div');
+  container.classList.add('container');
+  read ? container.style.background = 'green' : container.style.background = "red";
+   
   const deleteButton = document.createElement('button');
-  deleteButton.textContent = "X";
+  deleteButton.classList.add('remove-btn');
+  deleteButton.textContent = "Remove";
 
   const readButton = document.createElement('button');
-  readButton.textContent = "read";
+  readButton.classList.add('read-btn');
+  read ? readButton.textContent = "Not Read" : readButton.textContent = "Read";
 
-  const titleSpan = document.createElement('span');
-  titleSpan.textContent = title;
+  const buttonDiv = document.createElement('div');
+  buttonDiv.classList.add('button-div');
+
+  const titleHeading = document.createElement('h3');
+  titleHeading.textContent = `"${title}"`;
+
+  const authorText = document.createElement('h4');
+  authorText.textContent = `Author: ${author}`;
+  authorText.style.marginBottom = "1rem";
+
+  const pagesText = document.createElement('h5');
+  pagesText.textContent = `${pages} pages`;
 
   myBooks.append(li);
-  li.append(titleSpan, deleteButton, readButton);
+  buttonDiv.append(deleteButton, readButton);
+  container.append(titleHeading, authorText, pagesText, buttonDiv);
+  li.append(container);
 
   for (let i = 0; i < myLibrary.length; i++) {
     li.setAttribute("id", i)
@@ -50,6 +68,10 @@ function addBookToLibrary(title, author, pages, read) {
     let readStatus = myLibrary[parseInt(li.getAttribute("id"))].read;
     if (readStatus) myLibrary[parseInt(li.getAttribute("id"))].read = false;
     else myLibrary[parseInt(li.getAttribute("id"))].read = true;
+
+
+    readButton.textContent === 'Read' ? readButton.textContent = 'Not read' : readButton.textContent = 'Read';
+    container.style.background === 'red'? container.style.background = 'green' : container.style.background = 'red';    
   })
 }
 
