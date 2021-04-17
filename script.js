@@ -1,4 +1,8 @@
-let myLibrary = [];
+let myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
+
+const addBooks = () => {
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
 const myBooks = document.querySelector('.books');
 
 function Book(title, author, pages, read) {
@@ -9,9 +13,27 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
+  myLibrary.push(new Book(title, author, pages, read));
+  createHTML(title, author, pages, read);
+}
 
-  myLibrary.push(new Book(title, author, pages, read))
+document.querySelector('form').addEventListener('submit', (e) => {
+  e.preventDefault();
 
+  let title = document.querySelector('.title').value;
+  let author = document.querySelector('.author').value;
+  let pages = document.querySelector('.pages').value;
+  let read = document.querySelector('.read').checked;
+
+  addBookToLibrary(title, author, pages, read);
+
+  document.querySelector('.title').value = "";
+  document.querySelector('.author').value = "";
+  document.querySelector('.pages').value = "";
+  document.querySelector('.read').checked = false;
+})
+
+const createHTML = (title, author, pages, read) => {
   const li = document.createElement('li');
   li.classList.add('list-item');
 
@@ -60,8 +82,11 @@ function addBookToLibrary(title, author, pages, read) {
   deleteButton.addEventListener('click', () => {
     assignID();
     myLibrary.splice(parseInt(li.getAttribute("id")), 1);
+    addBooks();
     li.remove();
   })
+
+  addBooks();
 
   readButton.addEventListener('click', () => {
     assignID();
@@ -69,26 +94,13 @@ function addBookToLibrary(title, author, pages, read) {
     if (readStatus) myLibrary[parseInt(li.getAttribute("id"))].read = false;
     else myLibrary[parseInt(li.getAttribute("id"))].read = true;
 
-
     readButton.textContent === 'Read' ? readButton.textContent = 'Not read' : readButton.textContent = 'Read';
-    container.style.background === 'red'? container.style.background = 'green' : container.style.background = 'red';    
+    container.style.background === 'red'? container.style.background = 'green' : container.style.background = 'red';
+    
+    addBooks();
   })
 }
 
-document.querySelector('form').addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  let title = document.querySelector('.title').value;
-  let author = document.querySelector('.author').value;
-  let pages = document.querySelector('.pages').value;
-  let read = document.querySelector('.read').checked;
-
-  addBookToLibrary(title, author, pages, read);
-
-  document.querySelector('.title').value = "";
-  document.querySelector('.author').value = "";
-  document.querySelector('.pages').value = "";
-  document.querySelector('.read').checked = false;
+myLibrary.forEach(book => {
+  createHTML(book.title, book.author, book.pages, book.read);
 })
-
-
