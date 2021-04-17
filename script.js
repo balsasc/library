@@ -94,7 +94,7 @@ const createHTML = (title, author, pages, read) => {
     if (readStatus) myLibrary[parseInt(li.getAttribute("id"))].read = false;
     else myLibrary[parseInt(li.getAttribute("id"))].read = true;
 
-    readButton.textContent === 'Read' ? readButton.textContent = 'Not read' : readButton.textContent = 'Read';
+    readButton.textContent === 'Read' ? readButton.textContent = 'Not Read' : readButton.textContent = 'Read';
     container.style.background === 'red'? container.style.background = 'green' : container.style.background = 'red';
     
     addBooks();
